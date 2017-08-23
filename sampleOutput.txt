@@ -1,0 +1,8 @@
+Item Name           Qnty(Kg)     Price(INR)       SubTotal(INR)
+
+Apple                 5.00          25.00             125.00 
+Orange                3.00          35.00             105.00 
+Grapes               10.00         205.00            2050.00 
+
+Total Amout Due (in INR): 2280.00
+
