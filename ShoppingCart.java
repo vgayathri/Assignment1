@@ -13,37 +13,44 @@ import java.util.Map;
 public class ShoppingCart {
 
     Map<ShoppingItem, Float> fruitCart = new HashMap<>();
+    float totalBillValue = 0.0f;
 
     public void addItem(ShoppingItem item, float qnty) {
         fruitCart.putIfAbsent(item,qnty);
     }
 
-    public void printRcpt(){
+    void calculateBillValue(){
         String outputStr;
         float totalValue=0.0f;
-        System.out.format("Item Name           Qnty(Kg)     Price(INR)       SubTotal(INR)\n\n");
         for(Map.Entry<ShoppingItem, Float> entry : fruitCart.entrySet() ) {
             ShoppingItem key = entry.getKey();
             Float qnty = entry.getValue();
             float rate = key.getPricePerUnit() * qnty;
-            totalValue += rate;
-            outputStr = String.format("%-20s%6.2f       %8.2f           %8.2f %n", key.getItem().getName(), qnty, key.getPricePerUnit(), rate);
-            System.out.print(outputStr);
+            totalBillValue += rate;
         }
-        System.out.format("\nTotal Amout Due (in INR): %6.2f%n",totalValue);
     }
 
-    public void singleItemRcpt(ShoppingItem itemToPrint){
+    public void printRcpt() {
+        calculateBillValue();
+        System.out.format("Item Name           Qnty(Kg)     Price(INR)       SubTotal(INR)\n\n");
+        for(Map.Entry<ShoppingItem, Float> entry : fruitCart.entrySet() ) {
+            printSingleItemRcpt(entry.getKey());
+        }
+        String.format("\nTotal Amout Due (in INR): %6.2f%n",totalBillValue);
+
+    }
+
+    public void printSingleItemRcpt(ShoppingItem itemToPrint){
         String outputStr;
         if (fruitCart.containsKey(itemToPrint)) {
-
-            Float quantity = fruitCart.get(itemToPrint);
+            float quantity = fruitCart.get(itemToPrint);
             float rate = itemToPrint.getPricePerUnit() * quantity;
-            outputStr = String.format("%20s%6.2f Kg INR%6.2f %n", itemToPrint.getItem().toString(), quantity, rate);
-            System.out.print(outputStr);
+            System.out.format("%-20s%6.2f       %8.2f           %8.2f %n", itemToPrint.getItem().getName(), quantity,
+                    itemToPrint.getPricePerUnit(),rate);
 
         }
     }
+
     public void removeItem(ShoppingItem itemToRemove) {
             if (fruitCart.containsKey(itemToRemove)) {
                 fruitCart.remove(itemToRemove);

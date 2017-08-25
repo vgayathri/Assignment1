@@ -8,14 +8,16 @@ import java.util.*;
  * shop only Fruits
  */
 public class ShoppingApp {
+
     ShoppingCart myCart = new ShoppingCart();
 
     // Method to add items to the shoppingCart
     public void populateShoppingCart() {
 
-        myCart.addItem(new ShoppingItem(new Fruit("Apple"),25.00f),5f);
-        myCart.addItem(new ShoppingItem(new Fruit("Orange"),35.00f),3f);
-        myCart.addItem(new ShoppingItem(new Fruit("Grapes"),205.00f),10f);
+        myCart.addItem(new ShoppingItem(new Fruit("Apple"),20.00f),5f);
+        myCart.addItem(new ShoppingItem(new Fruit("Orange"),30.00f),3f);
+        myCart.addItem(new ShoppingItem(new Fruit("Grapes"),200.00f),10f);
+        myCart.addItem(new ShoppingItem(new Fruit("StrawBerry"),300.00f),0.275f);
 
     }
 
@@ -24,13 +26,17 @@ public class ShoppingApp {
         myCart.printRcpt();
     }
 
+    public void calculateBill(){
+        myCart.calculateBillValue();
+    }
+
     public static void main(String[] args) {
 
         ShoppingApp myApp = new ShoppingApp();
         myApp.populateShoppingCart();
+        myApp.calculateBill();
         myApp.printBill();
 
     }
-
 
 }
